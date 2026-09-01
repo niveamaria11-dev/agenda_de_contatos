@@ -1,0 +1,8 @@
+bin/
+.settings/
+.metadata/
+.classpath
+.project
+*.class
+Thumbs.db
+Desktop.ini
