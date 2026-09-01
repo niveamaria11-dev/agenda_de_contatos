@@ -1,8 +1,8 @@
 package br.edu.principal;
 
-import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) {
@@ -16,89 +16,124 @@ public class Principal {
 
         System.out.println("==========================");
         System.out.println("    AGENDA DE CONTATOS    ");
-        System.out.println("         V.0.2.0          ");
+        System.out.println("         V.0.3.0          ");
         System.out.println("==========================");
         System.out.println("Bem-vindo!");
 
-        while(continuar) {
+        while (continuar) {
             System.out.println();
             System.out.println("1 - Adicionar contato");
-            System.out.println("2 - Listar contato");
+            System.out.println("2 - Listar contatos");
             System.out.println("3 - Procurar contato");
-            System.out.println("4 - Excluir contato");
-            System.out.println("5 - Sair");
+            System.out.println("4 - Alterar contato");
+            System.out.println("5 - Excluir contato");
+            System.out.println("6 - Sair");
             System.out.println();
             System.out.print("Escolha uma opção: ");
             opcao = sc.nextInt();
             sc.nextLine();
 
-            switch(opcao) {
+            switch (opcao) {
                 case 1 -> {
-                    System.out.println("\n--- ADICIONAR CONTATO ---");
-                    System.out.print("Nome: ");
-                    nomes.add(sc.nextLine());
-                    System.out.print("Celular: ");
-                    celulares.add(sc.nextLine());
-                    System.out.print("E-mail: ");
-                    emails.add(sc.nextLine());
-                    System.out.println("Contato salvo com sucesso!");
+                    System.out.println("\n=== ADICIONAR CONTATO ===");
+                    System.out.print("Digite o nome: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Digite o celular: ");
+                    String celular = sc.nextLine();
+                    System.out.print("Digite o email: ");
+                    String email = sc.nextLine();
+
+                    nomes.add(nome);
+                    celulares.add(celular);
+                    emails.add(email);
+
+                    System.out.println("Contato adicionado com sucesso!");
                 }
                 case 2 -> {
-                    System.out.println("Listar contato");
-                    if(nomes.size() == 0) {
-                        System.out.println("Nenhum contato encontrado!");
+                    System.out.println("=== LISTAR CONTATOS ===");
+                    if (nomes.size() == 0) {
+                        System.out.println("Nenhum contato cadastrado!");
                     } else {
-                        for(int i = 0; i < nomes.size(); i++) {
-                            System.out.println("\nContato " + (i + 1));
+                        for (int i = 0; i < nomes.size(); i++) {
+                            System.out.println("------");
                             System.out.println("Nome: " + nomes.get(i));
                             System.out.println("Celular: " + celulares.get(i));
-                            System.out.println("E-mail: " + emails.get(i));
+                            System.out.println("Email: " + emails.get(i));
                         }
                     }
                 }
                 case 3 -> {
-                    System.out.println("\n--- PROCURAR CONTATO ---");
-                    System.out.print("Digite o nome que deseja procurar: ");
+                    System.out.println("=== PROCURAR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
                     String nomeBusca = sc.nextLine();
                     boolean encontrado = false;
-                    for(int i = 0; i < nomes.size(); i++) {
-                        if(nomes.get(i).equalsIgnoreCase(nomeBusca)) {
-                            System.out.println("Contato encontrado!");
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeBusca)) {
+                            System.out.println("------");
                             System.out.println("Nome: " + nomes.get(i));
                             System.out.println("Celular: " + celulares.get(i));
-                            System.out.println("E-mail: " + emails.get(i));
+                            System.out.println("Email: " + emails.get(i));
                             encontrado = true;
                         }
                     }
-                    if(!encontrado) {
-                        System.out.println("Contato não encontrado.");
+
+                    if (!encontrado) {
+                        System.out.println("Contato não encontrado!");
                     }
                 }
                 case 4 -> {
-                    System.out.println("\n--- EXCLUIR CONTATO ---");
-                    if(nomes.size() == 0) {
-                        System.out.println("Nenhum contato cadastrado.");
+                    System.out.println("=== ALTERAR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
+                    String nomeProcurado = sc.nextLine();
+                    int posicao = -1;
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeProcurado)) {
+                            posicao = i;
+                        }
+                    }
+
+                    if (posicao != -1) {
+                        System.out.print("Digite o novo nome: ");
+                        String novoNome = sc.nextLine();
+                        System.out.print("Digite o novo celular: ");
+                        String novoCelular = sc.nextLine();
+                        System.out.print("Digite o novo email: ");
+                        String novoEmail = sc.nextLine();
+
+                        nomes.set(posicao, novoNome);
+                        celulares.set(posicao, novoCelular);
+                        emails.set(posicao, novoEmail);
+
+                        System.out.println("Contato alterado com sucesso!");
                     } else {
-                        System.out.print("Digite o nome do contato que deseja excluir: ");
-                        String nomeExcluir = sc.nextLine();
-                        int indiceExcluir = -1;
-                        for(int i = 0; i < nomes.size(); i++) {
-                            if(nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
-                                indiceExcluir = i;
-                            }
-                        }
-                        if(indiceExcluir == -1) {
-                            System.out.println("Contato não encontrado.");
-                        } else {
-                            nomes.remove(indiceExcluir);
-                            celulares.remove(indiceExcluir);
-                            emails.remove(indiceExcluir);
-                            System.out.println("Contato excluído com sucesso!");
-                        }
+                        System.out.println("Contato não encontrado!");
                     }
                 }
                 case 5 -> {
-                    System.out.println("Saindo...");
+                    System.out.println("=== EXCLUIR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
+                    String nomeExcluir = sc.nextLine();
+                    boolean excluido = false;
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
+                            nomes.remove(i);
+                            celulares.remove(i);
+                            emails.remove(i);
+                            excluido = true;
+                            System.out.println("Contato excluído com sucesso!");
+                            break;
+                        }
+                    }
+
+                    if (!excluido) {
+                        System.out.println("Contato não encontrado!");
+                    }
+                }
+                case 6 -> {
+                    System.out.println("Saindo da Agenda de Contatos...");
                     continuar = false;
                 }
                 default -> System.out.println("Opção inválida!");
